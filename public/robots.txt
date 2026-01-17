@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cocalmayo.pe/sitemap-0.xml
