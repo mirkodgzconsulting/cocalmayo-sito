@@ -1,0 +1,64 @@
+---
+import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-[#2c2f8b] text-white pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      
+      <!-- Brand & About -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-serif font-bold text-white tracking-wide">COCALMAYO</h3>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+          Café gourmet de alta calidad, cultivado artesanalmente en Quillabamba, Cusco. Disfruta de una experiencia única en cada taza.
+        </p>
+        <div class="flex space-x-4 pt-2">
+          <a href="https://www.facebook.com/people/Cocalmayo-Coffee/100095122553265/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <Facebook className="w-5 h-5" />
+          </a>
+          <a href="https://www.instagram.com/cocalmayocoffee/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <Instagram className="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6 text-[#25D366]">Menú</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li><a href="/nosotros" class="hover:text-white transition-colors">Nosotros</a></li>
+          <li><a href="/productos" class="hover:text-white transition-colors">Productos</a></li>
+          <li><a href="/contactanos" class="hover:text-white transition-colors">Contáctanos</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-lg font-semibold mb-6 text-[#25D366]">Contáctanos</h4>
+        <ul class="space-y-4 text-sm text-gray-400">
+          <li class="flex items-start">
+            <MapPin className="w-5 h-5 mr-3 text-[#25D366] shrink-0" />
+            <span>Quillabamba, Cusco, Perú</span>
+          </li>
+          <li class="flex items-center">
+            <Phone className="w-5 h-5 mr-3 text-[#25D366] shrink-0" />
+            <a href="tel:+51967229988" class="hover:text-white transition-colors">+51 967 22 99 88</a>
+          </li>
+          <li class="flex items-center">
+            <Mail className="w-5 h-5 mr-3 text-[#25D366] shrink-0" />
+            <a href="mailto:ventas@cocalmayo.pe" class="hover:text-white transition-colors">ventas@cocalmayo.pe</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-xs text-gray-500">
+      <p>&copy; {currentYear} COCALMAYO COFFEE – Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,129 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { products } from '../../data/products';
+import { Image } from 'astro:assets';
+import { Phone, MapPin, Clock } from 'lucide-react';
+
+export async function getStaticPaths() {
+  return products.map(product => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout title={`${product.title} | Cocalmayo Coffee`} description={product.desc}>
+  
+  <!-- Content Section -->
+  <div>
+    <!-- Dynamic Hero using Product Image -->
+    <section class="relative h-[50vh] md:h-[60vh] min-h-[350px] flex items-center justify-center overflow-hidden bg-brand-blue pt-20">
+        <div class="absolute inset-0 z-0 h-full"> 
+            <Image 
+                src={product.image} 
+                alt={product.title} 
+                class="w-full h-full object-cover opacity-60 mix-blend-multiply"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-blue/90 via-transparent to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 class="font-serif font-bold text-3xl md:text-6xl mb-6 drop-shadow-lg">{product.title}</h1>
+        </div>
+    </section>
+
+    <div class="section-container relative z-20 -mt-20 pb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Left Info Column -->
+            <div class="lg:col-span-2 space-y-12">
+                
+                <!-- Description Card -->
+                <div class="bg-white rounded-3xl p-10 shadow-xl border border-gray-100">
+                    <h2 class="heading-2 mb-6 text-[#2D328D]">Experiencia Única</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        {product.fullDesc}
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                       Hacer café para los invitados siempre es una gran idea, sea cual sea la ocasión. Prepara tus cafés de CocalmayoCOFFEE® favoritos para amigos, familiares o colegas.
+                    </p>
+                </div>
+
+                <!-- Why Choose Us -->
+                <div class="bg-blue-50 rounded-3xl p-10 border-l-8 border-[#2D328D]">
+                    <h3 class="text-2xl font-bold text-[#2D328D] mb-4">¿Por qué elegirnos?</h3>
+                    <p class="text-[#2D328D]/80 text-lg">
+                        Frescura, calidad de origen y tostado artesanal en cada grano. Llevamos lo mejor de Quillabamba directamente a tu mesa.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Right Form Column -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] p-8 sticky top-32 border border-gray-100">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-[#2D328D] mb-2">Solicitar Pedido</h3>
+                        <p class="text-sm text-gray-500">
+                            Completa el formulario y te contactaremos de inmediato vía WhatsApp para coordinar tu pedido de <strong class="text-[#2D328D]">{product.title}</strong>.
+                        </p>
+                    </div>
+
+                    <form id="orderForm" class="space-y-4">
+                        <input type="hidden" id="productName" value={product.title} />
+                        
+                        <div class="space-y-1">
+                            <label for="nombre" class="text-xs font-bold text-gray-700 ml-1 uppercase tracking-wide">Nombre</label>
+                            <input type="text" id="nombre" required class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#25D366] focus:ring-1 focus:ring-[#25D366] transition-colors outline-none" placeholder="Tu nombre" />
+                        </div>
+
+                        <div class="space-y-1">
+                             <label for="empresa" class="text-xs font-bold text-gray-700 ml-1 uppercase tracking-wide">Empresa (Opcional)</label>
+                            <input type="text" id="empresa" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#25D366] focus:ring-1 focus:ring-[#25D366] transition-colors outline-none" placeholder="Nombre de tu empresa" />
+                        </div>
+
+                         <div class="space-y-1">
+                            <label for="mensaje" class="text-xs font-bold text-gray-700 ml-1 uppercase tracking-wide">Mensaje</label>
+                            <textarea id="mensaje" rows="3" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-[#25D366] focus:ring-1 focus:ring-[#25D366] transition-colors outline-none resize-none" placeholder="¿Alguna pregunta o cantidad específica?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20bd5a] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center uppercase tracking-widest text-sm mt-4">
+                            <Phone className="w-5 h-5 mr-2" />
+                            Enviar a WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+</Layout>
+
+<script>
+    const form = document.getElementById('orderForm');
+
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const productName = (document.getElementById('productName') as HTMLInputElement).value;
+        const nombre = (document.getElementById('nombre') as HTMLInputElement).value;
+        const empresa = (document.getElementById('empresa') as HTMLInputElement).value;
+        const mensaje = (document.getElementById('mensaje') as HTMLTextAreaElement).value;
+
+        const text = `
+Hola, me interesa el producto: *${productName}*
+--------------------------------
+*Nombre:* ${nombre}
+*Empresa:* ${empresa || '-'}
+--------------------------------
+*Consulta:* ${mensaje}
+        `.trim();
+
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=51967229988&text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
+    });
+</script>

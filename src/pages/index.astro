@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/hero-home.webp'; // Using new hero image
+import img1 from '../assets/images/IMG_5710.JPG';
+import img2 from '../assets/images/IMG_5714.JPG';
+import img3 from '../assets/images/IMG_5721.JPG';
+import img4 from '../assets/images/IMG_5722.JPG';
+import img5 from '../assets/images/IMG_5726.JPG';
+import img6 from '../assets/images/IMG_5727.JPG';
+import img7 from '../assets/images/IMG_5729.JPG';
+import { products } from '../data/products';
+
+const carouselImages = [img3, img1, img2, img4, img5, img6, img7];
+---
+
+<Layout title="Cocalmayo Coffee | Café de Especialidad">
+	
+	<!-- Hero Section -->
+	<section class="relative h-[65vh] md:h-screen min-h-[400px] flex items-center justify-center overflow-hidden">
+		<div class="absolute inset-0 z-0">
+			<Image 
+				src={heroImage} 
+				alt="Plantación de café Cocalmayo" 
+				class="w-full h-full object-cover"
+				quality="high"
+			/>
+			<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#2D328D]/30"></div>
+		</div>
+		
+		<div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto animate-fade-in-up">
+
+			<h1 class="text-3xl md:text-8xl font-serif font-bold mb-8 leading-tight text-shadow">
+				NUESTRA SELECCIÓN
+			</h1>
+			<p class="text-xl md:text-2xl text-gray-100 mb-12 font-light tracking-wide max-w-2xl mx-auto">
+				Descubre la pasión en cada taza
+			</p>
+			<div class="flex flex-col sm:flex-row gap-6 justify-center">
+				<a href="/productos" class="group relative px-8 py-4 bg-[#25D366] text-white font-bold rounded-full overflow-hidden shadow-[0_0_20px_rgba(37,211,102,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(37,211,102,0.6)]">
+					<span class="relative z-10 flex items-center">
+						VER PRODUCTOS
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+						</svg>
+					</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Intro Section -->
+	<section class="py-28 bg-[#F9FAFB] relative">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex flex-col-reverse md:flex-row items-center gap-20">
+				<div class="w-full md:w-1/2 relative group perspective-1000 h-[300px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+					{carouselImages.map((img, index) => (
+						<Image 
+							src={img} 
+							alt={`Café con amigos ${index + 1}`} 
+							class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'} carousel-image`}
+						/>
+					))}
+				</div>
+				<div class="w-full md:w-1/2 space-y-8">
+					<h2 class="text-5xl font-serif font-bold text-[#2D328D] leading-tight">
+						Café con <br/>
+						<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#2D328D] to-[#25D366]">amigos</span>
+					</h2>
+					<div class="w-24 h-1.5 bg-[#25D366] rounded-full"></div>
+					<p class="text-gray-600 text-lg leading-loose">
+						Hacer café para los invitados siempre es una gran idea, sea cual sea la ocasión. Prepara tus cafés de <strong>CocalmayoCOFFEE®</strong> favoritos para amigos, familiares o colegas.
+					</p>
+					<p class="text-gray-500 leading-relaxed font-light">
+						Cada grano cuenta una historia de tradición y esfuerzo. Compartir una taza es más que un gesto; es una experiencia que une.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Products Preview -->
+	<section class="py-28 bg-white relative overflow-hidden">
+		<!-- Decor element -->
+
+
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+			<div class="text-center max-w-3xl mx-auto mb-20">
+				<h2 class="text-5xl font-serif font-bold text-[#2D328D] mb-6">Nuestros Productos</h2>
+				<div class="w-20 h-1 bg-[#25D366] mx-auto rounded-full"></div>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+				
+				{products.map((product) => (
+					<div class="group relative bg-white rounded-[2rem] border border-gray-100 transition-all duration-500 flex flex-col h-full overflow-hidden hover:-translate-y-2">
+						<div class="h-48 md:h-72 overflow-hidden bg-gray-50 relative">
+							<div class="absolute inset-0 bg-[#2D328D]/0 group-hover:bg-[#2D328D]/10 transition-colors z-10"></div>
+							<Image 
+								src={product.image} 
+								alt={product.title} 
+								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+							/>
+						</div>
+						<div class="p-8 flex flex-col flex-grow">
+							<h3 class="text-xl font-bold text-[#2D328D] mb-3 leading-tight group-hover:text-[#25D366] transition-colors uppercase">
+								{product.title}
+							</h3>
+							<p class="text-gray-600 mb-8 leading-relaxed flex-grow">
+								{product.desc}
+							</p>
+							<a href={`/productos/${product.id}`} class="inline-block w-full py-4 text-center border-2 border-[#2D328D] text-[#2D328D] font-bold rounded-xl hover:bg-[#2D328D] hover:text-white transition-all uppercase text-sm tracking-wider cursor-pointer">
+								Ver Detalles
+							</a>
+						</div>
+					</div>
+				))}
+
+			</div>
+			
+			<div class="text-center mt-16">
+				<a href="/productos" class="inline-block text-[#2D328D] font-bold hover:text-[#25D366] transition-colors border-b-2 border-transparent hover:border-[#25D366] pb-1 text-lg">
+					Ver todos los productos →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- WhatsApp CTA -->
+	<section class="py-24 bg-gray-50 relative overflow-hidden">
+		<div class="absolute inset-0">
+			<!-- Abstract patterns -->
+			<div class="absolute top-0 left-0 w-full h-full bg-[url('/pattern.png')] opacity-5"></div>
+			<div class="absolute -top-24 -right-24 w-96 h-96 bg-[#25D366] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+			<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D4A017] rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+		</div>
+		
+		<div class="relative max-w-5xl mx-auto text-center px-4">
+			<h2 class="text-4xl md:text-6xl font-serif font-bold text-[#2D328D] mb-8">¿Necesitas una solución específica?</h2>
+
+			<a href="https://api.whatsapp.com/send/?phone=51967229988&text=%C2%A1Hola%2C+quisiera+mas+informaci%C3%B3n" target="_blank" class="group inline-flex items-center px-10 py-5 bg-[#25D366] text-white font-bold rounded-full text-lg shadow-xl hover:shadow-[0_0_40px_rgba(37,211,102,0.4)] transition-all transform hover:scale-105">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+				</svg>
+				Consúltanos ahora
+			</a>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.animate-fade-in-up {
+		animation: fadeInUp 1s ease-out forwards;
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.text-shadow {
+		text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+	}
+</style>
+
+<script>
+	function initCarousel() {
+		let currentIndex = 0;
+		const images = document.querySelectorAll('.carousel-image');
+		const totalImages = images.length;
+
+		if (totalImages > 0) {
+			
+			// Clear any existing interval to prevent speeding up on navigation
+			if ((window as any).carouselInterval) clearInterval((window as any).carouselInterval);
+
+			(window as any).carouselInterval = setInterval(() => {
+				images[currentIndex].classList.remove('opacity-100');
+				images[currentIndex].classList.add('opacity-0');
+
+				currentIndex = (currentIndex + 1) % totalImages;
+
+				images[currentIndex].classList.remove('opacity-0');
+				images[currentIndex].classList.add('opacity-100');
+			}, 3000); // 3 seconds rotation
+		}
+	}
+
+	// Init on load
+	initCarousel();
+
+	// Init on navigation (Astro View Transitions)
+	document.addEventListener('astro:page-load', initCarousel);
+</script>

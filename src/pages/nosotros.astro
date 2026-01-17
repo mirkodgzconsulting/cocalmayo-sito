@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import fincaImage from '../assets/images/hero-main-nosotros.png';
+import contentImage from '../assets/images/content-nosotros.jpg';
+
+---
+
+<Layout title="Nosotros | Cocalmayo Coffee" description="Nuestra historia desde Quillabamba hasta tu taza.">
+	
+	<!-- Hero Section Parallax -->
+	<section class="relative h-[50vh] md:h-[60vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+		<div class="absolute inset-0 z-0 h-full"> <!-- Changed to absolute for stability -->
+			<Image 
+				src={fincaImage} 
+				alt="Finca Cocalmayo" 
+				class="w-full h-full object-cover"
+			/>
+			<div class="absolute inset-0 bg-brand-blue/70 mix-blend-multiply"></div>
+		</div>
+		
+		<div class="relative z-10 text-center text-white px-4 animate-fade-in-up">
+			<h1 class="heading-1 text-shadow-lg">
+				Nuestra Historia
+			</h1>
+			<p class="text-xl md:text-3xl font-light tracking-wide text-blue-100 max-w-3xl mx-auto border-t border-white/20 pt-6">
+				Comienza a disfrutar de una experiencia única
+			</p>
+		</div>
+	</section>
+
+	<!-- Main Content Section -->
+	<section class="relative section-padding bg-white -mt-20 z-20 shadow-[0_-20px_60px_rgba(0,0,0,0.1)]">
+		<div class="section-container">
+			<div class="flex flex-col lg:flex-row gap-20 items-start">
+				
+				<!-- Text Content -->
+				<div class="lg:w-1/2 space-y-10">
+					<div class="relative">
+						<h2 class="heading-2 relative z-10">
+							Acerca de nosotros
+						</h2>
+						<div class="absolute -bottom-2 left-0 w-24 h-2 bg-brand-green rounded-full"></div>
+					</div>
+					
+					<div class="prose prose-lg text-gray-600 leading-loose space-y-6">
+						<p>
+							En <strong class="text-brand-blue bg-blue-50 px-2 py-0.5 rounded">Cocalmayo COFFEE & CACAO</strong>, llevamos años cultivando y elaborando café de la más alta calidad en la hermosa región de Quillabamba, Cuzco, Perú. Nos enorgullece ser una empresa con una pasión profunda por el café y un compromiso inquebrantable con la excelencia.
+						</p>
+						<p>
+							Desde nuestros humildes comienzos, hemos trabajado arduamente para perfeccionar cada paso del proceso, desde la selección de las mejores variedades de café hasta el tueste artesanal y la meticulosa preparación de nuestras deliciosas cosechas de café. Nuestro enfoque está en la calidad, la sostenibilidad y el respeto por la tierra y las comunidades locales de Santa Teresa en Quillabamba.
+						</p>
+					</div>
+
+					<!-- Feature List -->
+					<div class="space-y-6 mt-12">
+						{[
+							{ title: 'Calidad', text: 'Seleccionamos solo los mejores granos para un sabor excepcional.' },
+							{ title: 'Origen', text: 'Valoramos la procedencia y el trabajo de nuestros caficultores.' },
+							{ title: 'Sostenibilidad', text: 'Promovemos prácticas responsables con el medio ambiente.' }
+						].map((item, i) => (
+							<div class="group flex items-start p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-brand-blue/20 transition-all duration-300 hover:-translate-y-1">
+								<div class="w-12 h-12 rounded-full bg-brand-blue/10 flex items-center justify-center mr-6 group-hover:bg-brand-blue transition-colors shrink-0">
+									<span class="text-brand-blue font-bold text-xl group-hover:text-white transition-colors">{i + 1}</span>
+								</div>
+								<div>
+									<h3 class="font-bold text-xl text-brand-blue mb-2">{item.title}</h3>
+									<p class="text-gray-600">{item.text}</p>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Image Side -->
+				<div class="lg:w-1/2 relative lg:sticky lg:top-32">
+					<Image 
+						src={contentImage} 
+						alt="Caficultora en Quillabamba" 
+						class="relative rounded-[2rem] w-full h-auto object-contain shadow-xl"
+					/>
+					
+					<!-- Floating Badge -->
+					<div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-xl max-w-xs border-l-4 border-brand-green hidden md:block">
+						<p class="text-brand-blue font-serif font-bold text-xl italic">
+							"El respeto por la tierra es el secreto de nuestro sabor."
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to Action -->
+	<section class="bg-gray-50 py-24 text-center relative overflow-hidden">
+		<div class="absolute inset-0 bg-[url('/pattern.png')] opacity-5"></div>
+		<div class="relative z-10 max-w-4xl mx-auto px-4">
+			<h2 class="heading-1 mb-10 leading-tight text-shadow-none text-[#2D328D]">Disfruta el mejor café</h2>
+			<a 
+				href="https://api.whatsapp.com/send/?phone=51967229988" 
+				target="_blank"
+				class="btn-whatsapp bg-[#25D366] text-white hover:bg-[#20bd5a]"
+			>
+				Hablemos por WhatsApp
+			</a>
+		</div>
+	</section>
+
+</Layout>
+
+<style>
+	.text-shadow {
+		text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+	}
+	
+	.animate-fade-in-up {
+		animation: fadeInUp 1s ease-out forwards;
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
